@@ -11,6 +11,11 @@ class FakeDetector:
         # get the subreddits the user has posted in
         subreddits = self.reddit.get_subreddits_posted_in_by_user(username)
         # get the subreddits that are r4r subreddits
-        r4r_subreddits = self._data.get_r4r_subreddits()
+        r4r_subreddits = self._data.get_r4r_subreddit_names()
         # if the intersection of the two sets is greater than threshold, return true
         return len(subreddits.intersection(r4r_subreddits)) > self._threshold
+    
+    # return r4r subreddits from data layer for testing
+    def get_r4r_subreddits(self) -> list[str]:
+        return self._data.get_r4r_subreddit_names()
+    
