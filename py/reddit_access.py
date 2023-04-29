@@ -7,19 +7,19 @@ class RedditAccess:
         self.reddit = praw.Reddit("bot1")
         print("Logged in as {}".format(self.reddit.user.me()))
 
-    def get_reddit(self):
+    def get_reddit(self) -> praw.Reddit:
         return self.reddit
 
-    def get_default_subreddits(self):
+    def get_default_subreddits(self) -> list[str]:
         return [s.display_name for s in self.reddit.subreddits.default()]
     
     # Returns a set of subreddit names that the user has posted in recently
-    def get_subreddits_posted_in_by_user(self, username, time = 'week'):
+    def get_subreddits_posted_in_by_user(self, username: str, time: str = 'week') -> set[str]:
         submissions = self.reddit.redditor(username).submissions.top(time_filter=time)
         return {s.subreddit.display_name for s in submissions}
 
     # returns a list of subreddits matching the pattern 'r4r'
-    def get_r4r_subreddits(self):
+    def get_r4r_subreddits(self) -> list:
         return [s.display_name for s in self.reddit.subreddits.search("r4r")]
 
 def main():
