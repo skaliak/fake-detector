@@ -1,11 +1,12 @@
-import praw
+import praw, logging
 
 # Reddit API access
 
 class RedditAccess:
     def __init__(self):
+        logging.info("RedditAccess.__init__()")
         self.reddit = praw.Reddit("bot1")
-        print("Logged in as {}".format(self.reddit.user.me()))
+        logging.info("Logged in as {}".format(self.reddit.user.me()))
 
     def get_reddit(self) -> praw.Reddit:
         return self.reddit
