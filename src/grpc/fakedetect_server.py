@@ -44,6 +44,7 @@ def serve():
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, filename='grpc.log', format='%(asctime)s - %(levelname)s - %(message)s')
+    logging.getLogger().addHandler(logging.StreamHandler())
     msg = "starting rpc server"
     print(msg)
     logging.info(msg)

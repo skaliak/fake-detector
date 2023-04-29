@@ -3,8 +3,9 @@ import praw, logging
 # Reddit API access
 
 class RedditAccess:
-    def __init__(self):
-        logging.info("RedditAccess.__init__()")
+    def __init__(self, timeframe: str = 'week'):
+        logging.info(f"RedditAccess.__init__() ... timeframe = {timeframe}")
+        self._timeframe = timeframe
         self.reddit = praw.Reddit("bot1")
         logging.info("Logged in as {}".format(self.reddit.user.me()))
 
