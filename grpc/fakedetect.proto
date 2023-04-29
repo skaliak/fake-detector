@@ -1,0 +1,34 @@
+// service def and types for Fake Detector
+
+syntax = "proto3";
+
+package fakedetectorapi;
+
+// service definition for the Fake Detector service
+service FakeDetectorService {
+    // check single username
+    rpc CheckUsername(CheckUsernameRequest) returns (CheckUsernameResponse);
+
+    // check multiple usernames
+    rpc CheckUsernames(CheckUsernamesRequest) returns (CheckUsernamesResponse);
+}
+
+// request message with a string property for the username to be checked
+message CheckUsernameRequest {
+    string username = 1;
+}
+
+// response message with a boolean property for the result of the check
+message CheckUsernameResponse {
+    bool isFake = 1;
+}
+
+// request message with a string array of usernames to be checked
+message CheckUsernamesRequest {
+    repeated string usernames = 1;
+}
+
+// response message with a string array of usernames that are fake
+message CheckUsernamesResponse {
+    repeated string fakeUsernames = 1;
+}
