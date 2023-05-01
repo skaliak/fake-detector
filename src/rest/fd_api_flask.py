@@ -1,15 +1,19 @@
 from flask import Flask, request
 from flask_restful import Api, Resource
-import logging
-from src.main import data_layer, fake_detector
+import logging, sys
 
+sys.path.append("..")
+import main.fake_detector as fake_detector
+import main.data_layer as data_layer
+
+logging.basicConfig(level=logging.DEBUG, filename='fakedetect_flask.log', format='%(asctime)s - %(levelname)s - %(message)s')
 app = Flask(__name__)
 api = Api(app)
-detector = fake_detector(data_layer.HardCodedDataAccess())
+detector = fake_detector.FakeDetector(data_layer.HardCodedDataAccess())
 
 # stub
 def detect_fake(username: str) -> bool:
-    return False
+    return True
 
 class FakeDetector(Resource):
     def get(self, username):
@@ -17,8 +21,9 @@ class FakeDetector(Resource):
         return {'is_fake': is_fake}
 
 class FakeDetectorMulti(Resource):
+    # call like this: /fake-detector-multi?u=<username1>&u=<username2>&...
     def get(self):
-        usernames = request.args.getlist('username')
+        usernames = request.args.getlist('u')
         fake_usernames = []
         for username in usernames:
             if detect_fake(username):
@@ -29,6 +34,5 @@ api.add_resource(FakeDetectorMulti, '/fake-detector-multi')
 api.add_resource(FakeDetector, '/fake-detector/<string:username>')
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG, filename='fakedetect_flask.log', format='%(asctime)s - %(levelname)s - %(message)s')
     logging.getLogger().addHandler(logging.StreamHandler())
     app.run(debug=True)
