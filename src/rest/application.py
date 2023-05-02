@@ -8,8 +8,8 @@ import main.data_layer as data_layer
 
 logging.basicConfig(level=logging.DEBUG, filename='fakedetect_flask.log', format='%(asctime)s - %(levelname)s - %(message)s')
 logging.getLogger().addHandler(logging.StreamHandler())
-app = Flask(__name__)
-api = Api(app)
+application = Flask(__name__)
+api = Api(application)
 detector = fake_detector.FakeDetector(data_layer.HardCodedDataAccess())
 
 # stub
@@ -40,4 +40,4 @@ api.add_resource(FakeDetector, '/fake-detector/<string:username>')
 api.add_resource(Root, '/')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    application.run(host='0.0.0.0', debug=True)

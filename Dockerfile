@@ -16,4 +16,4 @@ EXPOSE 5000
 WORKDIR /src/rest
 
 # Define the command to run the Flask app when the container starts
-CMD ["python", "fd_api_flask.py"]
+CMD ["python", "application.py"]
