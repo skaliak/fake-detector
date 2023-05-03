@@ -1,3 +1,4 @@
+from __future__ import annotations
 import praw, logging, os
 
 # Reddit API access
@@ -15,9 +16,6 @@ class RedditAccess:
 
     def get_reddit(self) -> praw.Reddit:
         return self.reddit
-
-    def get_default_subreddits(self) -> list[str]:
-        return [s.display_name for s in self.reddit.subreddits.default()]
     
     # Returns a set of subreddit names that the user has posted in recently
     def get_subreddits_posted_in_by_user(self, username: str, time: str = 'week') -> set[str]:

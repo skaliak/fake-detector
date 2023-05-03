@@ -1,3 +1,4 @@
+from __future__ import annotations
 import logging
 if __name__ == "__main__":
     import reddit_access, data_layer
