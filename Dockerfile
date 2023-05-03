@@ -15,5 +15,9 @@ EXPOSE 5000
 
 WORKDIR /src/rest
 
+ENV CLIENT_ID="none"
+ENV CLIENT_SECRET="none"
+ENV USER_AGENT="testing script by u/plindb1"
+
 # Define the command to run the Flask app when the container starts
 CMD ["python", "application.py"]

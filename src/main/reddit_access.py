@@ -1,4 +1,4 @@
-import praw, logging
+import praw, logging, os
 
 # Reddit API access
 
@@ -6,7 +6,11 @@ class RedditAccess:
     def __init__(self, timeframe: str = 'week'):
         logging.info(f"RedditAccess.__init__() ... timeframe = {timeframe}")
         self._timeframe = timeframe
-        self.reddit = praw.Reddit("bot1")
+        client_id = os.getenv("CLIENT_ID")
+        client_secret = os.getenv("CLIENT_SECRET")
+        user_agent = os.getenv("USER_AGENT")
+        logging.info(f"user agent for reddit: {user_agent}")
+        self.reddit = praw.Reddit(client_id=client_id, client_secret=client_secret, user_agent=user_agent)
         logging.info("Logged in as {}".format(self.reddit.user.me()))
 
     def get_reddit(self) -> praw.Reddit:
