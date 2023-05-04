@@ -3,6 +3,8 @@ from flask_restful import Api, Resource
 import logging, sys, os
 
 import src.main.data_layer as data_layer
+import src.main.fake_detector as fake_detector
+
 
 logging.basicConfig(level=logging.DEBUG, filename='fakedetect_flask.log', format='%(asctime)s - %(levelname)s - %(message)s')
 logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
@@ -13,7 +15,6 @@ if use_mocks:
     detector = mock_fake_detector.MockFakeDetector()
 else:
     logging.info("Using real detector")
-    import src.main.fake_detector as fake_detector
     detector = fake_detector.FakeDetector(data_layer.HardCodedDataAccess())
 
 application = Flask(__name__)
