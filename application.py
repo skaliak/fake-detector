@@ -2,18 +2,18 @@ from flask import Flask, request
 from flask_restful import Api, Resource
 import logging, sys, os
 
-import src.main.fake_detector as fake_detector
 import src.main.data_layer as data_layer
-import src.main.mock_fake_detector as mock_fake_detector
 
 logging.basicConfig(level=logging.DEBUG, filename='fakedetect_flask.log', format='%(asctime)s - %(levelname)s - %(message)s')
-logging.getLogger().addHandler(logging.StreamHandler())
+logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 use_mocks = os.getenv("USE_MOCKS") == "True"
 if use_mocks:
     logging.info("Using mocks")
+    import src.main.mock_fake_detector as mock_fake_detector
     detector = mock_fake_detector.MockFakeDetector()
 else:
     logging.info("Using real detector")
+    import src.main.fake_detector as fake_detector
     detector = fake_detector.FakeDetector(data_layer.HardCodedDataAccess())
 
 application = Flask(__name__)
