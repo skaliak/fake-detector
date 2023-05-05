@@ -17,6 +17,10 @@ class RedditAccess:
     def get_reddit(self) -> praw.Reddit:
         return self.reddit
     
+    def get_user_bio(self, username:str) -> str:
+        user = self.reddit.redditor(username)
+        return user.subreddit.public_description
+
     # Returns a set of subreddit names that the user has posted in recently
     def get_subreddits_posted_in_by_user(self, username: str, time: str = 'week') -> set[str]:
         submissions = self.reddit.redditor(username).submissions.top(time_filter=time)

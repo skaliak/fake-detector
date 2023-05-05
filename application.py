@@ -24,6 +24,17 @@ api = Api(application)
 def detect_fake(username: str) -> bool:
     return detector.is_fake(username)
 
+class UserBio(Resource):
+    def get(self, username):
+        return {
+            'bio': detector.get_user_bio(username),
+            'username': username
+        }
+
+class Diag(Resource):
+    def get(self):
+        return os.environ
+
 class Root(Resource):
     def get(self):
         return {'message': 'Hello, World!'}
@@ -46,6 +57,8 @@ class FakeDetectorMulti(Resource):
 api.add_resource(FakeDetectorMulti, '/fake-detector-multi')
 api.add_resource(FakeDetector, '/fake-detector/<string:username>')
 api.add_resource(Root, '/')
+api.add_resource(Diag, '/diag')
+api.add_resource(UserBio, '/users')
 
 if __name__ == '__main__':
     application.run(host='0.0.0.0', debug=True)

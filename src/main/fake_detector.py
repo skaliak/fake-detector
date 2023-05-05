@@ -34,6 +34,9 @@ class FakeDetector:
     def get_r4r_subreddits(self) -> list[str]:
         return self._data.get_r4r_subreddit_names()
     
+    def get_user_bio(self, username: str) -> str:
+        return self.reddit.get_user_bio(username)
+    
 
 def prompt_loop(detector: FakeDetector):
     while True:
