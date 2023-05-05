@@ -54,7 +54,7 @@ class FakeDetectorMulti(Resource):
 api.add_resource(FakeDetectorMulti, '/fake-detector-multi')
 api.add_resource(FakeDetector, '/fake-detector/<string:username>')
 api.add_resource(Root, '/')
-api.add_resource(Diag, '/diag')
+# api.add_resource(Diag, '/diag')
 api.add_resource(User, '/users/<string:username>')
 
 if __name__ == '__main__':
