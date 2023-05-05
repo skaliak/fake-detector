@@ -17,9 +17,18 @@ class RedditAccess:
     def get_reddit(self) -> praw.Reddit:
         return self.reddit
     
-    def get_user_bio(self, username:str) -> str:
+    def get_user_details(self, username:str) -> dict:
         user = self.reddit.redditor(username)
-        return user.subreddit.public_description
+        bio = user.subreddit.public_description
+        subs = self.get_subreddits_posted_in_by_user(username)
+        created = user.created_utc
+        trophies = [t.name for t in user.trophies()]
+        return {
+            'bio': bio,
+            'subs': subs,
+            'created': created,
+            'trophies': trophies
+        }
 
     # Returns a set of subreddit names that the user has posted in recently
     def get_subreddits_posted_in_by_user(self, username: str, time: str = 'week') -> set[str]:
