@@ -30,7 +30,7 @@ class User(Resource):
 
 class Diag(Resource):
     def get(self):
-        return os.environ
+        return os.environ.keys()
 
 class Root(Resource):
     def get(self):
@@ -55,7 +55,7 @@ api.add_resource(FakeDetectorMulti, '/fake-detector-multi')
 api.add_resource(FakeDetector, '/fake-detector/<string:username>')
 api.add_resource(Root, '/')
 api.add_resource(Diag, '/diag')
-api.add_resource(User, '/users')
+api.add_resource(User, '/users/<string:username>')
 
 if __name__ == '__main__':
     application.run(host='0.0.0.0', debug=True)
