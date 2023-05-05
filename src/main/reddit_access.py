@@ -20,7 +20,7 @@ class RedditAccess:
     def get_user_details(self, username:str) -> dict:
         user = self.reddit.redditor(username)
         bio = user.subreddit.public_description
-        subs = self.get_subreddits_posted_in_by_user(username)
+        subs = list(self.get_subreddits_posted_in_by_user(username))
         created = user.created_utc
         trophies = [t.name for t in user.trophies()]
         return {
