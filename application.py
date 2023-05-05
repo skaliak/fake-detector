@@ -30,7 +30,7 @@ class User(Resource):
 
 class Diag(Resource):
     def get(self):
-        return os.environ.keys()
+        return {'env': str(os.environ)}
 
 class Root(Resource):
     def get(self):
