@@ -48,7 +48,7 @@ class RedditAccess:
             'week_subs': week_subs,
             'month_subs': month_subs,
             'week_comments': week_comments, # TODO: add month comments
-            'created': datetime.datetime.fromtimestamp(created),
+            'created': datetime.datetime.fromtimestamp(created).isoformat(),
             'trophies': trophies
         }
 
