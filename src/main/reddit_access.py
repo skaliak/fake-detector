@@ -21,7 +21,20 @@ class RedditAccess:
     def get_reddit(self) -> praw.Reddit:
         return self.reddit
     
+    # returns true if a user exists, otherwise false (catches 404 errors)
+    def user_exists(self, username: str) -> bool:
+        try:
+            self.reddit.redditor(username).id
+            return True
+        except Exception as e:
+            if 'NotFound' in str(type(e)):
+                return False
+            else:
+                raise e
+
     def get_user_details(self, username:str) -> dict:
+        if not self.user_exists(username):
+            return {'error': 'user does not exist'}
         user = self.reddit.redditor(username)
         bio = user.subreddit.public_description
         week_subs = list(self.get_subreddits_posted_in_by_user(username))
