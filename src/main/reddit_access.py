@@ -32,7 +32,7 @@ class RedditAccess:
             else:
                 raise e
 
-    def get_user_details(self, username:str) -> dict:
+    def get_user_details(self, username:str, include_trophies:bool = False) -> dict:
         if not self.user_exists(username):
             return {'error': 'user does not exist'}
         user = self.reddit.redditor(username)
@@ -41,7 +41,7 @@ class RedditAccess:
         month_subs = list(self.get_subreddits_posted_in_by_user(username, 'month'))
         week_comments = list(self.get_subreddits_commented_in_by_user(username))
         created = user.created_utc
-        trophies = [t.name for t in user.trophies()]
+        trophies = [t.name for t in user.trophies()] if include_trophies else []
         return {
             'total_karma': user.link_karma + user.comment_karma,
             'bio': bio,
